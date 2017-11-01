@@ -4,8 +4,13 @@ import './listOfArticles.css';
 class ListOfArticles extends Component{
 
     render(){
+        const { newArticles } = props;
         return(
-            <div>Test</div>
+            <ul>
+                { this.props.articles.map(article =>{
+                    <li key={article.id}>{article.text}</li>
+                })}
+            </ul>
         )
     }
 }
