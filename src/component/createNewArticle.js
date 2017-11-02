@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import firebase from 'firebase';
 
 class CreateNewArticle extends Component{
     
@@ -9,6 +10,16 @@ class CreateNewArticle extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentWillMount = () => {
+        this.firebaseRef = firebase.database().ref('/');
+        this.firebaseRes.on('value', function(dataSnapshot){
+            this.articles.push(dataSnapshot.val());
+            this.setState({
+                articles: this.articles
+            })
+        })
+    }
+    
     render(){
         return(
             <div >
@@ -25,8 +36,8 @@ class CreateNewArticle extends Component{
 
     handleChange(e) {
         this.setState({ text: e.target.value })
-        console.log(this)
     }
+
     handleSubmit(e) {
         e.preventDefault();
         if (!this.state.text.length) {
