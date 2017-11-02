@@ -7,7 +7,7 @@ class CreateNewArticle extends Component{
         super(props);
         this.state = {articles: [], text: ''};
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.pushToFirebase = this.pushToFirebase.bind(this);
     }
 
     componentWillMount = () => {
@@ -23,11 +23,10 @@ class CreateNewArticle extends Component{
     render(){
         return(
             <div >
-                <ListOfArticles articles={this.state.articles}/>
-                <form onSubmit={this.handleSubmit}>
+                <form >
                     <input onChange={this.handleChange} value={this.state.text}/>
-                    <button onClick={this.pushToFirebase.bind(this)}>
-                        ADD {this.state.articles.length +1}
+                    <button onClick={this.pushToFirebase}>
+                        ADD
                     </button>
                 </form>
             </div>
@@ -38,32 +37,6 @@ class CreateNewArticle extends Component{
         this.setState({ text: e.target.value })
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
-        if (!this.state.text.length) {
-            return;
-        }
-        const newArticle = {
-            text: this.state.text,
-            id: Date.now()
-        };
-        this.setState(prevState => ({
-            articles: prevState.articles.concat(newArticle),
-            text: ''
-        }));
-
-    }
 }
-    class ListOfArticles extends Component{
-        render(){
-            return (
-                <ul>
-                    { this.props.articles.map(article => (
-                        <li key={article.id}>{article.text}</li>
-                    ))}
-                </ul>
-            )
-        }
-    }
 
 export default CreateNewArticle;
