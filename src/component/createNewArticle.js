@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+import { database } from '../firebase';
 
 class CreateNewArticle extends Component{
     
@@ -11,13 +11,13 @@ class CreateNewArticle extends Component{
     }
 
     componentWillMount = () => {
-        this.firebaseRef = firebase.database().ref('/');
-        this.firebaseRes.on('value', function(dataSnapshot){
-            this.articles.push(dataSnapshot.val());
-            this.setState({
-                articles: this.articles
-            })
-        })
+        this.firebaseRef = database.ref('/');
+    }
+
+    pushToFirebase(event){
+        event.preventDefault();
+        this.firebaseRef.push({text: this.state.text});
+        this.setState({text: ''})
     }
     
     render(){
@@ -26,7 +26,7 @@ class CreateNewArticle extends Component{
                 <ListOfArticles articles={this.state.articles}/>
                 <form onSubmit={this.handleSubmit}>
                     <input onChange={this.handleChange} value={this.state.text}/>
-                    <button>
+                    <button onClick={this.pushToFirebase.bind(this)}>
                         ADD {this.state.articles.length +1}
                     </button>
                 </form>
