@@ -5,20 +5,34 @@ class CreateNewArticle extends Component{
     
     constructor(props){
         super(props);
-        this.state = {articles: [], text: ''};
+        this.state = {text: ''};
         this.handleChange = this.handleChange.bind(this);
         this.pushToFirebase = this.pushToFirebase.bind(this);
     }
 
+    handleChange(e) {
+        this.setState({ text: e.target.value })
+    }
     componentWillMount = () => {
         this.firebaseRef = database.ref('/');
     }
-
+    
     pushToFirebase(event){
         event.preventDefault();
         this.firebaseRef.push({text: this.state.text});
         this.setState({text: ''})
     }
+
+    componentDidMount = () => {
+      const backFromFF = database.ref('/');
+      backFromFF.on('value', snapshot =>{
+          const gigi = snapshot.val();
+          console.log(gigi);
+          this.setState({ gigi });
+      })
+    }
+    
+
     
     render(){
         return(
@@ -32,11 +46,6 @@ class CreateNewArticle extends Component{
             </div>
         );
     }
-
-    handleChange(e) {
-        this.setState({ text: e.target.value })
-    }
-
 }
 
 export default CreateNewArticle;
