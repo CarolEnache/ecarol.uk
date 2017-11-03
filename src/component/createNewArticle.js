@@ -8,35 +8,26 @@ class CreateNewArticle extends Component{
         this.state = {text: ''};
         this.handleChange = this.handleChange.bind(this);
         this.pushToFirebase = this.pushToFirebase.bind(this);
-    }
+    };
 
     handleChange(e) {
+        e.preventDefault();
         this.setState({ text: e.target.value })
-    }
+    };
     componentWillMount = () => {
-        this.firebaseRef = database.ref('/');
-    }
+        this.firebaseRef = database.ref('/articles');
+    };
     
     pushToFirebase(event){
         event.preventDefault();
         this.firebaseRef.push({text: this.state.text});
         this.setState({text: ''})
-    }
-
-    componentDidMount = () => {
-      const backFromFF = database.ref('/');
-      backFromFF.on('value', snapshot =>{
-          const gigi = snapshot.val();
-          console.log(gigi);
-          this.setState({ gigi });
-      })
-    }
-    
+    };
 
     
     render(){
         return(
-            <div >
+            <div className='CreateNewArticle'>
                 <form >
                     <input onChange={this.handleChange} value={this.state.text}/>
                     <button onClick={this.pushToFirebase}>
@@ -46,6 +37,6 @@ class CreateNewArticle extends Component{
             </div>
         );
     }
-}
+};
 
 export default CreateNewArticle;
