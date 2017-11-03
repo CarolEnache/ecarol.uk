@@ -12,14 +12,18 @@ class ListOfArticles extends Component{
             articles: null
         }
     }
-
-
     componentDidMount = () => {
         const articles = database.ref('/articles');
         articles.on('value', snapshot => {
-            this.setState({ articles: snapshot.val() });      
-          })
+            this.setState({ articles: snapshot.val() });     
+          });        
     };
+
+    handleSelect(key){
+        database.ref('/articles')
+            .child(key)
+            console.log(key)
+        }
     
     render(){
         const { articles } = this.state
@@ -27,7 +31,10 @@ class ListOfArticles extends Component{
             <div className='articlels'>
                 {
                     map(articles, (article, key)=>
-                        <p key={key}>{article.text}</p>
+                        <p key={key}
+                        onClick={()=>{
+                            this.handleSelect(key)
+                            }}>{article.text}</p>
                     )
                 }
             </div>
