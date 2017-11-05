@@ -10,16 +10,15 @@ class CreateNewArticle extends Component{
         this.pushToFirebase = this.pushToFirebase.bind(this);
     };
 
-    handleChange(e) {
-        e.preventDefault();
-        this.setState({ text: e.target.value })
+    handleChange(event) {
+        event.preventDefault();
+        this.setState({ text: event.target.value })
     };
     componentWillMount = () => {
         this.firebaseRef = database.ref('/articles');
     };
     
     pushToFirebase(event){
-        event.preventDefault();
         this.firebaseRef.push({text: this.state.text});
         this.setState({text: ''})
     };
