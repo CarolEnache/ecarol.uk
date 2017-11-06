@@ -29,6 +29,11 @@ class ListOfArticles extends Component{
         database.ref(`/articles/${key}`).set({text:ev.target.value})
     }
 
+    // handleTitle=(ev, key) => {
+    //     database.ref(`/articles/${key}`).set({title:ev.target.value})
+    // }
+
+
     handleDelete = key => {
         database.ref(`/articles/${key}`).set(null)
 
@@ -38,15 +43,27 @@ class ListOfArticles extends Component{
     render(){
         const { articles } = this.state
         return(
-            <div className='articlels'>
+            <div className='articles'>
                 {
                     map(articles, (article, key)=>
-                    <div key={key}>
+                    <div key={key} className='article'>
+
                         <textarea 
+                        className='title'
+                        onChange={e => this.handleTitle(e, key)}
+                        defaultValue={article.title}/> 
+                    
+                        <textarea
+                        className='subtitle'
+                        onChange={ e => this.handleSelect(e, key)}
+                        defaultValue={article.subtitle}
+                        />
+                        <textarea
+                        className='text' 
                         onChange={ e => this.handleSelect(e, key)}
                         defaultValue={article.text}
                         />
-                        <button onClick={()=>this.handleDelete(key)}>Delete</button>
+                        <button className='delete' onClick={()=>this.handleDelete(key)}>Delete</button>
                     </div>
                     )
                 }

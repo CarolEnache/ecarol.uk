@@ -5,20 +5,44 @@ class CreateNewArticle extends Component{
     
     constructor(props){
         super(props);
-        this.state = {text: ''};
+        this.state = {
+            title: null,
+            subtitle: null,
+            text: null
+        }
     };
 
-    handleChange = (event) => {
-        event.preventDefault();
-        this.setState({ text: event.target.value })
+    handleTitle = (e) => {
+        e.preventDefault();
+        this.setState({ title: e.target.value })
     };
+
+    handleSubtitle = (e) => {
+        e.preventDefault();
+        this.setState({ subtitle: e.target.value })
+    };
+
+    handleText = (e) => {
+        e.preventDefault();
+        this.setState({ text: e.target.value })
+    };
+
     componentWillMount = () => {
         this.firebaseRef = database.ref('/articles');
     };
     
     pushToFirebase = (event) => {
-        this.firebaseRef.push({text: this.state.text});
-        this.setState({text: ''})
+        this.firebaseRef.push({
+            title: this.state.title,
+            subtitle: this.state.subtitle,
+            text: this.state.text
+        });
+        this.setState({
+            title: ' ',
+            subtitle: '',
+            text: '',
+
+        })
     };
 
     
@@ -26,7 +50,9 @@ class CreateNewArticle extends Component{
         return(
             <div className='CreateNewArticle'>
                 <form >
-                    <input onChange={this.handleChange} value={this.state.text}/>
+                    <input onChange={this.handleTitle} value={this.state.title} placeholder='TITLE'/>
+                    <input onChange={this.handleSubtitle} value={this.state.subtitle} placeholder='SUBTITLE'/>
+                    <input onChange={this.handleText} value={this.state.text} placeholder='ARTICLE CONTENT'/>
                     <button onClick={this.pushToFirebase}>
                         ADD
                     </button>
