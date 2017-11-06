@@ -11,34 +11,29 @@ class ListOfArticles extends Component{
         this.state = { 
             articles: null
         }
-        this.handleChange = this.handleChange.bind(this);
-        // this.handleSelect = this.handleSelect.bind(this);
     }
-    componentDidMount = () => {
-        const articles = database.ref('/articles');
-        articles.on('value', snapshot => {
-            this.setState({ articles: snapshot.val() });     
-          });        
-    };
 
     componentWillMount = (article, key) => {
         this.firebaseRef = database.ref('/articles');
     };
 
+    componentDidMount = () => {
+        const articles = database.ref('/articles');
+        articles.on('value', snapshot => {
+            this.setState({ articles: snapshot.val() });     
+        });        
+    };
+    
+
     handleSelect=(ev, key) => {
         database.ref(`/articles/${key}`).set({text:ev.target.value})
     }
 
-    handleDelete=key => {
-        // database.ref(`/articles/${key}`).set({text:ev.target.value})
+    handleDelete = key => {
         database.ref(`/articles/${key}`).set(null)
 
     }
 
-    handleChange(event, key) {
-        const text = event.target.value
-        // const  articleRef = database.ref('/articles').child(key)
-    }
 
     render(){
         const { articles } = this.state
@@ -47,9 +42,8 @@ class ListOfArticles extends Component{
                 {
                     map(articles, (article, key)=>
                     <div key={key}>
-                        
                         <textarea 
-                        onChange={e=>this.handleSelect(e, key)}
+                        onChange={ e => this.handleSelect(e, key)}
                         defaultValue={article.text}
                         />
                         <button onClick={()=>this.handleDelete(key)}>Delete</button>

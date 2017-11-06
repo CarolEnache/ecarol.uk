@@ -6,11 +6,9 @@ class CreateNewArticle extends Component{
     constructor(props){
         super(props);
         this.state = {text: ''};
-        this.handleChange = this.handleChange.bind(this);
-        this.pushToFirebase = this.pushToFirebase.bind(this);
     };
 
-    handleChange(event) {
+    handleChange = (event) => {
         event.preventDefault();
         this.setState({ text: event.target.value })
     };
@@ -18,7 +16,7 @@ class CreateNewArticle extends Component{
         this.firebaseRef = database.ref('/articles');
     };
     
-    pushToFirebase(event){
+    pushToFirebase = (event) => {
         this.firebaseRef.push({text: this.state.text});
         this.setState({text: ''})
     };
