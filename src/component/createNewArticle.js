@@ -6,32 +6,24 @@ class CreateNewArticle extends Component{
     constructor(props){
         super(props);
         this.state = {
-            title: null,
-            subtitle: null,
-            text: null
+            title: ' ',
+            subtitle: ' ',
+            text: ' '
         }
-    };
-
-    handleTitle = (e) => {
-        e.preventDefault();
-        this.setState({ title: e.target.value })
-    };
-
-    handleSubtitle = (e) => {
-        e.preventDefault();
-        this.setState({ subtitle: e.target.value })
-    };
-
-    handleText = (e) => {
-        e.preventDefault();
-        this.setState({ text: e.target.value })
     };
 
     componentWillMount = () => {
         this.firebaseRef = database.ref('/articles');
     };
+
+    onChange = (e) => {
+        const state = this.state
+        state[e.target.name] = e.target.value;
+        this.setState(state);
+    }
+
     
-    pushToFirebase = (event) => {
+    pushToFirebase = () => {
         this.firebaseRef.push({
             title: this.state.title,
             subtitle: this.state.subtitle,
@@ -41,18 +33,19 @@ class CreateNewArticle extends Component{
             title: ' ',
             subtitle: '',
             text: '',
-
+            
         })
     };
-
+    
     
     render(){
+        const { title, subtitle, text } = this.state;
         return(
             <div className='CreateNewArticle'>
                 <form >
-                    <input onChange={this.handleTitle} value={this.state.title} placeholder='TITLE'/>
-                    <input onChange={this.handleSubtitle} value={this.state.subtitle} placeholder='SUBTITLE'/>
-                    <input onChange={this.handleText} value={this.state.text} placeholder='ARTICLE CONTENT'/>
+                    <input type='text' name='title' onChange={this.onChange} value={title} placeholder='TITLE'/>
+                    <input type='text' name='subtitle' onChange={this.onChange} value={subtitle} placeholder='SUBTITLE'/>
+                    <input type='text' name='text' onChange={this.onChange} value={text} placeholder='ARTICLE CONTENT'/>
                     <button onClick={this.pushToFirebase}>
                         ADD
                     </button>

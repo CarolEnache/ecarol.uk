@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { database } from '../firebase';
 import map from 'lodash/map';
-import CreateNewArticle from './createNewArticle';
 import './listOfArticles.css';
 
 class ListOfArticles extends Component{
@@ -9,11 +8,14 @@ class ListOfArticles extends Component{
     constructor(props){
         super(props);
         this.state = { 
-            articles: null
+            articles: null,
+            title: ' ',
+            subtitle: ' ',
+            text: ' '
         }
     }
 
-    componentWillMount = (article, key) => {
+    componentWillMount = (key) => {
         this.firebaseRef = database.ref('/articles');
     };
 
@@ -23,17 +25,18 @@ class ListOfArticles extends Component{
             this.setState({ articles: snapshot.val() });     
         });        
     };
-    
-    
-    handleTitle=(ev, key) => {
-        database.ref(`/articles/${key}`).update({title:ev.target.value})
-    }
-    handleSubtitle=(ev, key) => {
-        database.ref(`/articles/${key}`).update({subtitle: ev.target.value})
+
+    onChange = (e) => {
+        const state = this.state
+        state[e.target.name] = e.target.value;
+        this.setState(state);
     }
 
-    handleText=(ev, key) => {
-        database.ref(`/articles/${key}`).update({text:ev.target.value})
+    onSubmit = (e, key) =>{
+        e.preventDefault();
+        const updates= {};
+        updates[`/articles/${key}`] = this.state;
+        database.ref().update(updates);
     }
 
     handleDelete = key => {
@@ -41,32 +44,20 @@ class ListOfArticles extends Component{
 
     }
 
-
     render(){
-        const { articles } = this.state
+        const { articles, title, subtitle, text } = this.state
         return(
             <div className='articles'>
                 {
                     map(articles, (article, key)=>
-                    <div key={key} className='article'>
+                    <form key={key} onSubmit={this.onSubmit} className='article'>
 
-                        <textarea 
-                        className='title'
-                        onChange={e => this.handleTitle(e, key)}
-                        defaultValue={article.title}/> 
-                    
-                        <textarea
-                        className='subtitle'
-                        onChange={ e => this.handleSubtitle(e, key)}
-                        defaultValue={article.subtitle}
-                        />
-                        <textarea
-                        className='text' 
-                        onChange={ e => this.handleText(e, key)}
-                        defaultValue={article.text}
-                        />
+                        <input type='text' name='title' value={title} onChange={this.onChange} />
+                        <input type='text' name='subtitle' value={subtitle} onChange={this.onChange} />
+                        <input type='text' name='text' value={text} onChange={this.onChange} />
+                        <button type='submit'>Submit</button>
                         <button className='delete' onClick={()=>this.handleDelete(key)}>Delete</button>
-                    </div>
+                    </form>
                     )
                 }
             </div>

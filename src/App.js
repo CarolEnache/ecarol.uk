@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { database } from './firebase';
 import CreateNewArticle from './component/createNewArticle';
 import ListOfArticles from './component/listOfArticles';
 
