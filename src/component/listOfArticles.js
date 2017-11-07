@@ -24,15 +24,17 @@ class ListOfArticles extends Component{
         });        
     };
     
-
-    handleSelect=(ev, key) => {
-        database.ref(`/articles/${key}`).set({text:ev.target.value})
+    
+    handleTitle=(ev, key) => {
+        database.ref(`/articles/${key}`).update({title:ev.target.value})
+    }
+    handleSubtitle=(ev, key) => {
+        database.ref(`/articles/${key}`).update({subtitle: ev.target.value})
     }
 
-    // handleTitle=(ev, key) => {
-    //     database.ref(`/articles/${key}`).set({title:ev.target.value})
-    // }
-
+    handleText=(ev, key) => {
+        database.ref(`/articles/${key}`).update({text:ev.target.value})
+    }
 
     handleDelete = key => {
         database.ref(`/articles/${key}`).set(null)
@@ -55,12 +57,12 @@ class ListOfArticles extends Component{
                     
                         <textarea
                         className='subtitle'
-                        onChange={ e => this.handleSelect(e, key)}
+                        onChange={ e => this.handleSubtitle(e, key)}
                         defaultValue={article.subtitle}
                         />
                         <textarea
                         className='text' 
-                        onChange={ e => this.handleSelect(e, key)}
+                        onChange={ e => this.handleText(e, key)}
                         defaultValue={article.text}
                         />
                         <button className='delete' onClick={()=>this.handleDelete(key)}>Delete</button>
