@@ -32,11 +32,12 @@ class ListOfArticles extends Component{
         this.setState(state);
     }
 
-    onSubmit = (e, key) =>{
-        e.preventDefault();
-        const updates= {};
-        updates[`/articles/${key}`] = this.state;
-        database.ref().update(updates);
+    handleSubmit = (e) =>{
+        database.ref(`/articles/${e}`).update({
+            title: this.state.title,
+            subtitle: this.state.subtitle,
+            text: this.state.text
+        })
     }
 
     handleDelete = key => {
@@ -45,17 +46,17 @@ class ListOfArticles extends Component{
     }
 
     render(){
-        const { articles, title, subtitle, text } = this.state
+        const { articles } = this.state
         return(
             <div className='articles'>
                 {
                     map(articles, (article, key)=>
                     <form key={key} onSubmit={this.onSubmit} className='article'>
 
-                        <input type='text' name='title' value={title} onChange={this.onChange} />
-                        <input type='text' name='subtitle' value={subtitle} onChange={this.onChange} />
-                        <input type='text' name='text' value={text} onChange={this.onChange} />
-                        <button type='submit'>Submit</button>
+                            <input type='text' name='title' onChange={this.onChange} onSubmit={this.onSubmit} defaultValue={article.title}/>          
+                        <input type='text' name='subtitle' defaultValue={article.subtitle} onChange={this.onChange} />
+                        <input type='text' name='text' defaultValue={article.text} onChange={this.onChange} />
+                        <button type='submit' onClick={() => this.handleSubmit(key)}>Submit</button>
                         <button className='delete' onClick={()=>this.handleDelete(key)}>Delete</button>
                     </form>
                     )
