@@ -32,8 +32,8 @@ class ListOfArticles extends Component{
         this.setState(state);
     }
 
-    handleSubmit = (e) =>{
-        database.ref(`/articles/${e}`).update({
+    handleSubmit = (key) =>{
+        database.ref(`/articles/${key}`).update({
             title: this.state.title,
             subtitle: this.state.subtitle,
             text: this.state.text
@@ -53,9 +53,9 @@ class ListOfArticles extends Component{
                     map(articles, (article, key)=>
                     <form key={key} onSubmit={this.onSubmit} className='article'>
 
-                            <input type='text' name='title' onChange={this.onChange} onSubmit={this.onSubmit} defaultValue={article.title}/>          
+                        <input type='text' name='title' onChange={this.onChange} onSubmit={this.onSubmit} defaultValue={article.title}/>          
                         <input type='text' name='subtitle' defaultValue={article.subtitle} onChange={this.onChange} />
-                        <input type='text' name='text' defaultValue={article.text} onChange={this.onChange} />
+                        <textarea type='text' name='text' defaultValue={article.text} onChange={this.onChange} />
                         <button type='submit' onClick={() => this.handleSubmit(key)}>Submit</button>
                         <button className='delete' onClick={()=>this.handleDelete(key)}>Delete</button>
                     </form>

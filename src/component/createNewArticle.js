@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { database } from '../firebase';
+import './createNewArticle.css'
 
 class CreateNewArticle extends Component{
     
@@ -42,10 +43,10 @@ class CreateNewArticle extends Component{
         const { title, subtitle, text } = this.state;
         return(
             <div className='CreateNewArticle'>
-                <form >
-                    <input type='text' name='title' onChange={this.onChange} value={title} placeholder='TITLE'/>
-                    <input type='text' name='subtitle' onChange={this.onChange} value={subtitle} placeholder='SUBTITLE'/>
-                    <input type='text' name='text' onChange={this.onChange} value={text} placeholder='ARTICLE CONTENT'/>
+                <form className='createNewArticleForm' >
+                    <input type='text' className='creatTitle' name='title' onChange={this.onChange} value={title} />
+                    <input type='text' className='creatSubtitle' name='subtitle' onChange={this.onChange} value={subtitle} placeholder='SUBTITLE'/> 
+                    <textarea type='text' className='creatText' name='text' onChange={this.onChange} value={text} placeholder='ARTICLE CONTENT'/>
                     <button onClick={this.pushToFirebase}>
                         ADD
                     </button>
