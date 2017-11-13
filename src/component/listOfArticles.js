@@ -26,14 +26,17 @@ class ListOfArticles extends Component{
         const { articles } = this.state
          return(
              <div>
-                 {
-                     map(articles, (article, key) => 
-                        <form key={key}>
-                          <input type='checkbox' name='article' value='key'/>{article.title}
-                          <p>{article.subtitle}</p> 
-                        </form>
-                    )
-                 }
+                 <h1>List of Articles</h1>
+                 <div className='articles'>
+                        {
+                            map(articles, (article, key) => 
+                                <form key={key}>
+                                <input type='checkbox' name='article' value='key'/>{article.title}
+                                {/* <p>{article.subtitle}</p>  */}
+                                </form>
+                            )
+                        }
+                 </div>
              </div>
         )
     }
