@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { database } from '../firebase';
 import map from 'lodash/map';
-import './listOfArticles.css';
+import './EditArticles.css';
 
-class ListOfArticles extends Component{
+class EditArticles extends Component{
 
     constructor(props){
         super(props);
@@ -63,4 +63,4 @@ class ListOfArticles extends Component{
         )
     }
 }
-export default ListOfArticles;
+export default EditArticles;

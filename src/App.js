@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CreateNewArticle from './component/createNewArticle';
-import ListOfArticles from './component/listOfArticles';
+import EditArticles from './component/editArticles';
 import ShowArticle from './component/showArticle';
 
 class App extends Component {
@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <div>
         <CreateNewArticle />
-        <ListOfArticles />
+        <EditArticles />
         <ShowArticle />
       </div>
     );
