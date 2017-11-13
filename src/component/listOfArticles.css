@@ -22,3 +22,21 @@
     margin: 0;
     margin-left: 20px; 
 }
+
+.control-navigation a{
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    border: 1px solid black;
+    margin: 1rem;
+    
+}
+.control-navigation-item a:hover{
+    background-color: lightskyblue;
+    color: white;
+    height: 100%;
+}
+.control-navigation{
+    list-style: none;
+    display: flex;
+}

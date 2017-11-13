@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { database } from '../firebase';
+import { Link } from 'react-router-dom';
 import './createNewArticle.css'
 
 class CreateNewArticle extends Component{
@@ -43,13 +44,35 @@ class CreateNewArticle extends Component{
         const { title, subtitle, text } = this.state;
         return(
             <div className='CreateNewArticle'>
-                <form className='createNewArticleForm' >
-                    <input type='text' className='creatTitle' name='title' onChange={this.onChange} value={title} />
-                    <input type='text' className='creatSubtitle' name='subtitle' onChange={this.onChange} value={subtitle} placeholder='SUBTITLE'/> 
-                    <textarea type='text' className='creatText' name='text' onChange={this.onChange} value={text} placeholder='ARTICLE CONTENT'/>
-                    <button onClick={this.pushToFirebase}>
-                        ADD
-                    </button>
+                <form className='cna-form' >
+                    <div className='cna-header'>
+                        <h3>Crete New Article</h3>
+                    </div>
+                    <input type='text' 
+                        className='cna-title' 
+                        name='title' 
+                        onChange={this.onChange} 
+                        value={title} />
+                    <input type='text' 
+                        className='cna-subtitle' 
+                        name='subtitle' 
+                        onChange={this.onChange} 
+                        value={subtitle} 
+                        placeholder='SUBTITLE'/> 
+                    <textarea type='text' 
+                        className='cna-text' 
+                        name='text' 
+                        onChange={this.onChange} 
+                        value={text} 
+                        placeholder='ARTICLE CONTENT'/>
+                    <div className='cna-footer'>
+                        <Link to='/' className='cna-save'onClick={this.pushToFirebase}>
+                            Save
+                        </Link>
+                        <Link to='/' className='cna-save'>
+                            Cancel
+                        </Link> 
+                    </div>
                 </form>
             </div>
         );

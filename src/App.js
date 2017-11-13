@@ -13,6 +13,7 @@ class App extends Component {
       <Router>
         <div>
           <Route exact path='/' component={ListOfArticles} />
+          <Route path='/create' component={CreateNewArticle}/>
         </div>
       </Router>
 
