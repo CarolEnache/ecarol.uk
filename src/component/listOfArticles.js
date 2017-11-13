@@ -15,9 +15,6 @@ class ListOfArticles extends Component{
         }
     }
 
-    componentWillMount = (key) => {
-        this.firebaseRef = database.ref('/articles');
-    };
 
     componentDidMount = () => {
         const articles = database.ref('/articles');
@@ -56,7 +53,8 @@ class ListOfArticles extends Component{
                         <input type='text' name='title' onChange={this.onChange} onSubmit={this.onSubmit} defaultValue={article.title}/>          
                         <input type='text' name='subtitle' defaultValue={article.subtitle} onChange={this.onChange} />
                         <textarea type='text' name='text' defaultValue={article.text} onChange={this.onChange} />
-                        <button type='submit' onClick={() => this.handleSubmit(key)}>Submit</button>
+                        <button type='submit' className='saveButton'onClick={() => this.handleSubmit(key)}>Save</button>
+                        <button type='button' className='publishButton'>Publish</button>
                         <button className='delete' onClick={()=>this.handleDelete(key)}>Delete</button>
                     </form>
                     )
