@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { database } from '../firebase';
 import map from 'lodash/map';
+import './listOfArticles.css';
 
 class ListOfArticles extends Component{
     constructor(props) {
@@ -26,13 +27,13 @@ class ListOfArticles extends Component{
         const { articles } = this.state
          return(
              <div>
-                 <h1>List of Articles</h1>
+                 <h1 className='pageTitle'>List of Articles</h1>
                  <div className='articles'>
                         {
                             map(articles, (article, key) => 
-                                <form key={key}>
-                                <input type='checkbox' name='article' value='key'/>{article.title}
-                                {/* <p>{article.subtitle}</p>  */}
+                                <form key={key} className='article'>
+                                    <input type='checkbox' name='article' value='key' className='title'/>{article.title}
+                                    <p className='subtitle'>{article.subtitle}</p> 
                                 </form>
                             )
                         }
