@@ -28,7 +28,7 @@ class ListOfArticles extends Component{
              <div>
                  {
                      map(articles, (article, key) => 
-                        <form>
+                        <form key={key}>
                           <input type='checkbox' name='article' value='key'/>{article.title}
                           <p>{article.subtitle}</p> 
                         </form>
