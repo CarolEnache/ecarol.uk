@@ -22,8 +22,6 @@ class ListOfArticles extends Component{
         });
     };
 
-
-
     render(){
         const { articles } = this.state
          return(
@@ -32,7 +30,7 @@ class ListOfArticles extends Component{
                  <div className='articles'>
                      <ul className='control-navigation'>
                          <li className='control-navigation-item'><Link to='/Create'>Create</Link></li>
-                         <li className='control-navigation-item'><Link to='/Create'>Create</Link></li>
+                         <li className='control-navigation-item'><Link to='/Edit'>Edit</Link></li>
                          <li className='control-navigation-item'><Link to='/Create'>Create</Link></li>
                          <li className='control-navigation-item'><Link to='/Create'>Create</Link></li>
                      </ul>

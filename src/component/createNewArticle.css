@@ -40,3 +40,7 @@
     border: 1px solid black;
     margin: 1rem;
 }
+
+.cna-save:disabled {
+    background-color: red !important;
+}

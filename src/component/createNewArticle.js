@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { database } from '../firebase';
-import { Link } from 'react-router-dom';
+import { Link, history } from 'react-router-dom';
 import './createNewArticle.css'
 
 class CreateNewArticle extends Component{
@@ -24,8 +24,15 @@ class CreateNewArticle extends Component{
         this.setState(state);
     }
 
+    onClick = () => {
+        if(this.state.title == ' '){
+            return
+        }
+    }
+
     
-    pushToFirebase = () => {
+    handleSunmit = () => {
+        this.props.history.push('/')
         this.firebaseRef.push({
             title: this.state.title,
             subtitle: this.state.subtitle,
@@ -35,7 +42,6 @@ class CreateNewArticle extends Component{
             title: ' ',
             subtitle: '',
             text: '',
-            
         })
     };
     
@@ -44,7 +50,7 @@ class CreateNewArticle extends Component{
         const { title, subtitle, text } = this.state;
         return(
             <div className='CreateNewArticle'>
-                <form className='cna-form' >
+                <form className='cna-form' onSubmit={this.handleSunmit}>
                     <div className='cna-header'>
                         <h3>Crete New Article</h3>
                     </div>
@@ -64,11 +70,11 @@ class CreateNewArticle extends Component{
                         name='text' 
                         onChange={this.onChange} 
                         value={text} 
-                        placeholder='ARTICLE CONTENT'/>
+                        placeholder="Enter email"/>
                     <div className='cna-footer'>
-                        <Link to='/' className='cna-save'onClick={this.pushToFirebase}>
-                            Save
-                        </Link>
+                    
+                        <input type='submit' value='Save' className='cna-save' />
+            
                         <Link to='/' className='cna-save'>
                             Cancel
                         </Link> 
